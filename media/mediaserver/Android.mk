@@ -30,6 +30,7 @@ LOCAL_STATIC_LIBRARIES := \
 LOCAL_C_INCLUDES := \
         frameworks/av/media/libmediaplayerservice \
         frameworks/av/services/mediaresourcemanager \
+        frameworks/native/libs/nativewindow/include
 
 LOCAL_MODULE:= mediaserver
 LOCAL_32_BIT_ONLY := true
@@ -37,5 +38,17 @@ LOCAL_32_BIT_ONLY := true
 LOCAL_INIT_RC := mediaserver.rc
 
 LOCAL_CFLAGS := -Werror -Wall
+
+ifeq ($(TARGET_HAS_LEGACY_CAMERA_HAL1),true)
+    LOCAL_CFLAGS += -DNO_CAMERA_SERVER
+
+    LOCAL_SHARED_LIBRARIES += \
+        libcameraservice \
+        android.hardware.camera.common@1.0 \
+        android.hardware.camera.provider@2.4
+
+     LOCAL_STATIC_LIBRARIES += \
+        libarect
+endif
 
 include $(BUILD_EXECUTABLE)
