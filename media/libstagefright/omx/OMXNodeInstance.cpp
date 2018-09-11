@@ -1087,8 +1087,7 @@ status_t OMXNodeInstance::useBuffer(
         }
 
         case OMXBuffer::kBufferTypeANWBuffer: {
-            if (mPortMode[portIndex] != IOMX::kPortModePresetANWBuffer
-                    && mPortMode[portIndex] != IOMX::kPortModeDynamicANWBuffer) {
+            if (mPortMode[portIndex] != IOMX::kPortModePresetANWBuffer) {
                 break;
             }
             return useGraphicBuffer_l(portIndex, omxBuffer.mGraphicBuffer, buffer);
